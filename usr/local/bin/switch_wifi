@@ -1,0 +1,37 @@
+#!/bin/bash
+{ 
+    case $1 in 
+        hotspot | Hotspot | HotSpot | hs | HS)
+            if [ -f "/etc/network/.hsmode" ]; then
+                echo "Already in Hotspot mode, doing nothing...";
+                return 0;
+            fi;
+            echo "Switching to Hotspot mode and rebooting";
+	    sudo systemctl enable hostapd &> /dev/null;
+	    sudo systemctl enable dnsmasq &> /dev/null;
+            sudo systemctl disable network-manager &> /dev/null;
+            sudo cp -f /etc/network/wifi-hotspot /etc/network/interfaces.d/ &> /dev/null;
+            sudo touch /etc/network/.hsmode &> /dev/null;
+            sudo reboot
+        ;;
+        NetworkManager | nm | NM)
+            if [ ! -f "/etc/network/.hsmode" ]; then
+                echo "Already in NetworkManager mode, doing nothing...";
+                return 0;
+            fi;
+            echo "Switching to NetworkManager mode and rebooting";
+	    sudo systemctl disable hostapd &> /dev/null;
+            sudo systemctl disable dnsmasq &> /dev/null;
+            sudo systemctl enable network-manager &> /dev/null;
+            sudo rm -f /etc/network/interfaces.d/wifi-hotspot &> /dev/null;
+            sudo rm -f /etc/network/.hsmode &> /dev/null;
+            sudo reboot
+        ;;
+        *)
+            echo;
+            echo "available options are";
+            echo "Hotspot (hs) or NetworkManager (nm)";
+            echo
+        ;;
+    esac
+}
