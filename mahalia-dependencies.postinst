@@ -34,7 +34,7 @@ if [ "$1" = 'configure' ]; then
 	deb-systemd-invoke enable mahalia-setup
 	##deb-systemd-invoke enable mahalia-flasher
 	deb-systemd-invoke enable mahalia-batcat
-	deb-systemd-invoke enable mahalia-nodered
+        #deb-systemd-invoke enable mahalia-nodered
 
 	
         # The node-red package installs a "socket" that we need to disable
