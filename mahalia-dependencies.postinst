@@ -19,15 +19,15 @@ if [ "$1" = 'configure' ]; then
 	# setup dnsmasq & hostapd
 	echo "DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"" > /etc/default/hostapd
 
-	#deb-systemd-invoke enable dnsmasq
+	deb-systemd-invoke disable dnsmasq
 	#deb-systemd-invoke start dnsmasq
 
 	# hostapd is masked by default
 	systemctl unmask hostapd
-	#deb-systemd-invoke enable hostapd
+	deb-systemd-invoke disable hostapd
 	##deb-systemd-invoke start hostapd
 
-	# deb-systemd-invoke enable network-manager
+        deb-systemd-invoke disable network-manager
 	
 	# Install and start daemon
 	deb-systemd-invoke enable mahalia
