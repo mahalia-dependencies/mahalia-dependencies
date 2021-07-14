@@ -27,7 +27,7 @@ if [ "$1" = 'configure' ]; then
 	#deb-systemd-invoke enable hostapd
 	##deb-systemd-invoke start hostapd
 
-	deb-systemd-invoke enable network-manager
+	# deb-systemd-invoke enable network-manager
 	
 	# Install and start daemon
 	deb-systemd-invoke enable mahalia
